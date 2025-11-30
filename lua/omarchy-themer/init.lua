@@ -2,12 +2,12 @@ local M = {}
 M.loaded = false
 
 M.opts = {
-  theme_changed = function ()
+  theme_changed = function()
   end,
 }
 
 local function lazy_reload()
-  local theme = require("lazyvim").opts.colorscheme
+  local theme = require("lazyvim.config").colorscheme
   local plugins = vim.tbl_keys(require("lazy.core.config").plugins)
 
   -- Clear all highlight groups before applying new theme
@@ -26,7 +26,7 @@ local function lazy_reload()
   require("lazy.core.loader").load(plugins, { cmd = "Lazy load" }, { force = false })
   require("lazy.core.loader").reload("LazyVim")
 
-  if theme ~= require("lazyvim").opts.colorscheme then
+  if theme ~= require("lazyvim.config").colorscheme then
     pcall(M.opts.theme_changed)
     vim.cmd("redraw!")
   end
